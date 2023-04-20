@@ -219,8 +219,8 @@ button:disabled {
   width: 1rem;
   height: 1rem;
   z-index: 300;
-  mask-image: url("./assets/clipboard.svg") ;
   -webkit-mask-image: url("./assets/clipboard.svg") ;
+  mask-image: url("./assets/clipboard.svg") ;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat; 
   -webkit-mask-position: center;

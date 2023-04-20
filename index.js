@@ -1,12 +1,17 @@
-let text = document.getElementById('text');
-let encrypt = document.getElementById('encrypt');
-let decrypt = document.getElementById('decrypt');
-let result = document.getElementById('result');
-let copy = document.getElementById('copy');
+const text = document.getElementById('text');
+const encrypt = document.getElementById('encrypt');
+const decrypt = document.getElementById('decrypt');
+const result = document.getElementById('result');
+const copy = document.getElementById('copy');
 
 function isUpperCase(str) {
-    str = str.trim();
-    if(str.length == 0) return false;
+    let reg = /[A-Z]/;
+    return reg.test(str);
+}
+
+function haveAccent(str) {
+    let reg = /[áéíóú]/;
+    return reg.test(str);
 }
 
 text.addEventListener('keyup', () => {
@@ -42,12 +47,26 @@ encrypt.addEventListener('click', () => {
         u: "ufat",
     }
     let str = text.value;
+    let isUpper = isUpperCase(str);
+
+    if(isUpper) {
+        alert('El texto no puede contener mayúsculas');
+        return;
+    }
+
+    let haveAcc = haveAccent(str);
+
+    if(haveAcc) {
+        alert('El texto no puede contener acentos');
+        return;
+    }
+
     let res = '';
-    for(let i = 0; i < str.length; i++) {
-        if(key[str[i]]) {
-            res += key[str[i]];
+    for(let word in str) {
+        if(key[str[word]]) {
+            res += key[str[word]];
         } else {
-            res += str[i];
+            res += str[word];
         }
     }
     result.innerHTML = res;
@@ -69,7 +88,7 @@ decrypt.addEventListener('click', () => {
     for(let i = 0; i < arr.length; i++) {
         let word = arr[i];
         let newWord = '';
-        for (j = 0; j < word.length; j++) {
+        for (let letra in word) {
         for (let vocale in key) {
             if(word.includes(vocale)) {
                 newWord = word.replace(vocale, key[vocale]);

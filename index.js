@@ -89,11 +89,13 @@ decrypt.addEventListener('click', () => {
     for(let i = 0; i < arr.length; i++) {
         let word = arr[i];
         let newWord = '';
+        for (let letra in word) {
         for (let vocale in key) {
             if(word.includes(vocale)) {
                 newWord = word.replace(vocale, key[vocale]);
                 word = newWord;
             } 
+        }
         }
         if(newWord.length > 0) {
             arr[i] = newWord;

@@ -10,7 +10,7 @@ function isUpperCase(str) {
 }
 
 function haveAccent(str) {
-    let reg = /[áéíóú]/;
+    let reg = /[áéíóúÁÉÍÓÚ]/;
     return reg.test(str);
 }
 
@@ -19,7 +19,8 @@ text.addEventListener('keyup', () => {
 
     if(str.length == 0) {
         result.innerHTML = `<strong>Ningún mensaje fue encontrado</strong> <br>
-        ingresa el texto que desees encriptar o desencriptar`;    }
+        ingresa el texto que desees encriptar o desencriptar`;
+    }
 });
 
 copy.addEventListener('click', () => {
@@ -62,11 +63,11 @@ encrypt.addEventListener('click', () => {
     }
 
     let res = '';
-    for(let word in str) {
-        if(key[str[word]]) {
-            res += key[str[word]];
+    for(let word of str) {
+        if(key[word]) {
+            res += key[word];
         } else {
-            res += str[word];
+            res += word;
         }
     }
     result.innerHTML = res;
@@ -88,13 +89,11 @@ decrypt.addEventListener('click', () => {
     for(let i = 0; i < arr.length; i++) {
         let word = arr[i];
         let newWord = '';
-        for (let letra in word) {
         for (let vocale in key) {
             if(word.includes(vocale)) {
                 newWord = word.replace(vocale, key[vocale]);
                 word = newWord;
             } 
-            }
         }
         if(newWord.length > 0) {
             arr[i] = newWord;
